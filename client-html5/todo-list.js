@@ -25,15 +25,46 @@ function createList() {
 }
 
 function createItem(labelText) {
-    const item = document.createElement("div")
-    const checkbox = document.createElement("input")
-    const btDelete = document.createElement("button")
-    const label = document.createElement("span")
-    checkbox.type = "checkbox"
-    btDelete.textContent = "remove"
-    label.textContent = labelText
-    item.append(checkbox, label, btDelete)
-    return { item, checkbox, label, btDelete }
+    const item = document.createElement("div");
+    const checkbox = document.createElement("input");
+    const btDelete = document.createElement("button");
+    const btEdit = document.createElement("button");
+    const label = document.createElement("span");
+
+    checkbox.type = "checkbox";
+    btDelete.textContent = "remove";
+    btEdit.textContent = "edit";
+    label.textContent = labelText;
+
+    label.addEventListener("click", () => {
+        label.classList.toggle("completed");
+    });
+
+    btEdit.addEventListener("click", () => {
+        const editedText = prompt("Edit item:", labelText);
+        if (editedText !== null) {
+            label.textContent = editedText;
+        }
+    });
+
+    btDelete.addEventListener("click", () => item.remove());
+    item.append(checkbox, label, btDelete, btEdit);
+
+    return { item, checkbox, label, btDelete, btEdit };
+}
+
+function addNewItem() {
+    if (input.value == "") return;
+    const { item, btDelete, label } = createItem(input.value);
+
+    btDelete.addEventListener("click", () => item.remove());
+
+    label.addEventListener("click", () => {
+        label.classList.toggle("completed");
+    });
+
+    input.value = "";
+    list.append(item);
 }
 
 export default function (rootElement) {
@@ -41,10 +72,10 @@ export default function (rootElement) {
     createLinkStyle()
     const { actionBar, addButton, input } = createAction()
     const list = createList()
-    rootElement.className = "varela-todo-list"
+    rootElement.className = "cariroja-todo-list"
     rootElement.append(actionBar, list)
 
-    const addNewItem = () => {
+    function addNewItem() {
         if (input.value == "") return
         const { item, btDelete } = createItem(input.value)
         btDelete.addEventListener("click", () => item.remove())
