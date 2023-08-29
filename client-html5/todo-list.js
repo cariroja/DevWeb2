@@ -39,6 +39,7 @@ function createItem(labelText) {
     label.addEventListener("click", () => {
         label.classList.toggle("completed");
     });
+    
 
     btEdit.addEventListener("click", () => {
         const editedText = prompt("Edit item:", labelText);
