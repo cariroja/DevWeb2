@@ -19,7 +19,7 @@
 
         & > *:hover {
             background-color: hsla(320, 89%, 83%, 0.8); /* Color de hover con transparencia */
-            color: white; /* Cambiar el color del texto en hover */
+            color: rgb(238, 196, 196); /* Cambiar el color del texto en hover */
         }
 
         & input {
